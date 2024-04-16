@@ -23,6 +23,7 @@ def extract_next_links(url, resp):
     #         resp.raw_response.url: the url, again
     #         resp.raw_response.content: the content of the page!
     # Return a list with the hyperlinks (as strings) scrapped from resp.raw_response.content
+    print("Hey this URL made it to extract_next_links: ", url)
     soup = BeautifulSoup(resp.raw_response.content, "lxml")
     hLinks = []
     hLinks += [url]
@@ -46,6 +47,7 @@ def is_valid(url):
     try:
         parsed = urlparse(url)
         if parsed.scheme not in set(["http", "https"]):
+            print("URL stopped here: ", parsed.hostname)
             return False
         if not valid.match(parsed.hostname):
             print("URL stopped here: ", parsed.hostname)
