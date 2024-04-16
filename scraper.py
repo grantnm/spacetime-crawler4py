@@ -43,9 +43,7 @@ def is_valid(url):
         if parsed.scheme not in set(["http", "https"]):
             return False
         if not valid.search(parsed.hostname):
-            print("Checked url: ", parsed.hostname)
             return False
-        print("Got past initial is_valid checks")
         return not re.match(
             r".*\.(css|js|bmp|gif|jpe?g|ico"
             + r"|png|tiff?|mid|mp2|mp3|mp4"
