@@ -1,8 +1,16 @@
 import re
 from urllib.parse import urlparse
+from urllib.parse import urldefrag
+from bs4 import BeautifulSoup
+import lxml
+
+# openlab cmd prompt: cd cs121-assignment-2/spacetime-crawler4py
+# cmd prompt: scp -r spacetime-crawler4py grantnm@openlab.ics.uci.edu:/home/grantnm/cs121-assignment2
 
 def scraper(url, resp):
     links = extract_next_links(url, resp)
+    links = [urldefrag(link)[0] for link in links]
+
     return [link for link in links if is_valid(link)]
 
 def extract_next_links(url, resp):
@@ -15,7 +23,14 @@ def extract_next_links(url, resp):
     #         resp.raw_response.url: the url, again
     #         resp.raw_response.content: the content of the page!
     # Return a list with the hyperlinks (as strings) scrapped from resp.raw_response.content
-    return list()
+    soup = BeautifulSoup(resp.raw_response.content, "lxml")
+    hLinks = []
+
+    # Returns a list of all </a> tags in the page, have to process to get individual URLs from this
+    for links in soup.find_all("a"):
+        hLinks = hLinks + links.get('href')
+
+    return hLinks
 
 def is_valid(url):
     # Decide whether to crawl this url or not. 
@@ -24,6 +39,8 @@ def is_valid(url):
     try:
         parsed = urlparse(url)
         if parsed.scheme not in set(["http", "https"]):
+            return False
+        if parsed.netloc not in set(["*.ics.uci.edu/*", "*.cs.uci.edu/*", "*.informatics.uci.edu/*", "*.stat.uci.edu/*"]):
             return False
         return not re.match(
             r".*\.(css|js|bmp|gif|jpe?g|ico"
