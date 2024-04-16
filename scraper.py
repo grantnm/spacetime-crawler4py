@@ -8,10 +8,12 @@ import lxml
 # cmd prompt: scp -r spacetime-crawler4py grantnm@openlab.ics.uci.edu:/home/grantnm/cs121-assignment2
 
 def scraper(url, resp):
+    print("Hey this URL made it to scraper: ", url)
     links = extract_next_links(url, resp)
+    print("Hey these links made it out of extract_next_links: ", links)
     links = [urldefrag(link)[0] for link in links]
 
-    print(links)
+    #print(links)
 
     return [link for link in links if is_valid(link)]
 
