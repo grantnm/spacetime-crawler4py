@@ -29,7 +29,7 @@ def extract_next_links(url, resp):
     # Return a list with the hyperlinks (as strings) scrapped from resp.raw_response.content
     
     # Use beautiful soup to get the content of the page
-    soup = BeautifulSoup(resp.url, "lxml")
+    soup = BeautifulSoup(resp.raw_response.content, "lxml")
 
     # Should extracting the content of the page (for tokenization and such) happen here or elsewhere?
     
