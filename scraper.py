@@ -28,7 +28,7 @@ def extract_next_links(url, resp):
 
     # Returns a list of all </a> tags in the page, have to process to get individual URLs from this
     for links in soup.find_all("a"):
-        hLinks = hLinks + links.get('href')
+        hLinks += links.get('href')
 
     return hLinks
 
