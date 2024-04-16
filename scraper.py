@@ -24,7 +24,8 @@ def extract_next_links(url, resp):
     #         resp.raw_response.content: the content of the page!
     # Return a list with the hyperlinks (as strings) scrapped from resp.raw_response.content
     soup = BeautifulSoup(resp.raw_response.content, "lxml")
-    hLinks = [url]
+    hLinks = []
+    hLinks += [url]
 
     # Returns a list of all </a> tags in the page, have to process to get individual URLs from this
     for links in soup.find_all("a"):
@@ -39,6 +40,7 @@ def is_valid(url):
     # Decide whether to crawl this url or not. 
     # If you decide to crawl it, return True; otherwise return False.
     # There are already some conditions that return False.
+    print("URL made it to is_valid: ", url)
     valid = re.compile('(.*ics\.uci\.edu.*|.*informatics\.uci\.edu.*|.*cs\.uci\.edu.*|.*stat\.uci\.edu.*)')
 
     try:
