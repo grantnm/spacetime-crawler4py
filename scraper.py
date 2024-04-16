@@ -27,8 +27,8 @@ def extract_next_links(url, resp):
     #         resp.raw_response.url: the url, again
     #         resp.raw_response.content: the content of the page!
     # Return a list with the hyperlinks (as strings) scrapped from resp.raw_response.content
-    print("Hey this URL made it to extract_next_links: ", url)
-    soup = BeautifulSoup(resp.raw_response.content, "lxml")
+    print("Hey this URL made it to extract_next_links: ", resp.raw_response.url)
+    soup = BeautifulSoup(url, "lxml")
     #hLinks = []
     #hLinks += [url]
 
