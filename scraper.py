@@ -24,7 +24,7 @@ def extract_next_links(url, resp):
     #         resp.raw_response.content: the content of the page!
     # Return a list with the hyperlinks (as strings) scrapped from resp.raw_response.content
     soup = BeautifulSoup(resp.raw_response.content, "lxml")
-    hLinks = []
+    hLinks = [url]
 
     # Returns a list of all </a> tags in the page, have to process to get individual URLs from this
     for links in soup.find_all("a"):
@@ -41,6 +41,7 @@ def is_valid(url):
         if parsed.scheme not in set(["http", "https"]):
             return False
         if parsed.hostname not in set(["ics.uci.edu", "cs.uci.edu", "informatics.uci.edu", "stat.uci.edu"]):
+            print("Improper domain name!")
             return False
         return not re.match(
             r".*\.(css|js|bmp|gif|jpe?g|ico"
