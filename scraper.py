@@ -28,8 +28,6 @@ def extract_next_links(url, resp):
 
     # Returns a list of all </a> tags in the page, have to process to get individual URLs from this
     for links in soup.find_all("a"):
-        print("Hey there!")
-        print(links.get('href'))
         hLinks += links.get('href')
 
     for item in hLinks:
@@ -41,13 +39,13 @@ def is_valid(url):
     # Decide whether to crawl this url or not. 
     # If you decide to crawl it, return True; otherwise return False.
     # There are already some conditions that return False.
-    valid = re.compile('.*(ics\.uci\.edu|informatics\.uci\.edu|cs\.uci\.edu|stat\.uci\.edu).*')
+    valid = re.compile('(.*ics\.uci\.edu.*|.*informatics\.uci\.edu.*|.*cs\.uci\.edu.*|.*stat\.uci\.edu.*)')
 
     try:
         parsed = urlparse(url)
         if parsed.scheme not in set(["http", "https"]):
             return False
-        if not valid.search(parsed.hostname):
+        if not valid.match(parsed.hostname):
             print("URL stopped here: ", parsed.hostname)
             return False
         print("URL got past first two checks:", parsed.hostname)
