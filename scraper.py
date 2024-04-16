@@ -30,7 +30,8 @@ def extract_next_links(url, resp):
     for links in soup.find_all("a"):
         hLinks += links.get('href')
 
-    print(hLinks)
+    for item in hLinks:
+        print(item)
     
     return hLinks
 
@@ -45,6 +46,7 @@ def is_valid(url):
         if parsed.scheme not in set(["http", "https"]):
             return False
         if not valid.search(parsed.hostname):
+            print("URL stopped here: ", parsed.hostname)
             return False
         return not re.match(
             r".*\.(css|js|bmp|gif|jpe?g|ico"
