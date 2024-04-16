@@ -11,6 +11,8 @@ def scraper(url, resp):
     links = extract_next_links(url, resp)
     links = [urldefrag(link)[0] for link in links]
 
+    print(links)
+
     return [link for link in links if is_valid(link)]
 
 def extract_next_links(url, resp):
