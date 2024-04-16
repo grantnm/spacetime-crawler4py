@@ -28,6 +28,8 @@ def extract_next_links(url, resp):
 
     # Returns a list of all </a> tags in the page, have to process to get individual URLs from this
     for links in soup.find_all("a"):
+        print("Hey there!")
+        print(links.get('href'))
         hLinks += links.get('href')
 
     for item in hLinks:
@@ -48,6 +50,7 @@ def is_valid(url):
         if not valid.search(parsed.hostname):
             print("URL stopped here: ", parsed.hostname)
             return False
+        print("URL got past first two checks:", parsed.hostname)
         return not re.match(
             r".*\.(css|js|bmp|gif|jpe?g|ico"
             + r"|png|tiff?|mid|mp2|mp3|mp4"
