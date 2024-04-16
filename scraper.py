@@ -27,17 +27,17 @@ def extract_next_links(url, resp):
     # Return a list with the hyperlinks (as strings) scrapped from resp.raw_response.content
     print("Hey this URL made it to extract_next_links: ", url)
     soup = BeautifulSoup(resp.raw_response.content, "lxml")
-    hLinks = []
-    hLinks += [url]
+    #hLinks = []
+    #hLinks += [url]
 
     # Returns a list of all </a> tags in the page, have to process to get individual URLs from this
-    for links in soup.find_all("a"):
-        hLinks += links.get('href')
+    #for links in soup.find_all("a"):
+    #    hLinks += links.get('href')
 
-    for item in hLinks:
-        print(item)
+    #for item in hLinks:
+    #    print(item)
     
-    return hLinks
+    return [link.get('href') for link in soup.find_all("a")]
 
 def is_valid(url):
     # Decide whether to crawl this url or not. 
